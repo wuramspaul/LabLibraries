@@ -1,30 +1,36 @@
 #include <iostream>
-struct binarytreenode
+struct binarytreenode //структура для бинарного дерева
 {
-  binarytreenode* left;
-  binarytreenode* right;
-  int elem;
+  binarytreenode* left; //указатель на левый элемент
+  binarytreenode* right;  //указатель на правй элемент
+  int elem; //значение эля этого узла
 };
 
-void addToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавление элемента в двоичное дерево
-  binarytreenode* newnode = new binarytreenode;
-  newnode->elem = m[*n]; 
-  newnode->left = NULL;
-  newnode->right = NULL;
-  if(root->right == NULL){
-    if(root->left == NULL){
-      root->left = newnode;
-      n++;
-    } 
-    root->right = newnode;
-    n++;
-  }
-  if(root->right != NULL){
-    if(root->left != NULL){
-      addToBinaryTree(root->left,n,m);
+void addToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавление элемента в двоичное дерево  
+  if(root->right != NULL){  //Если правый не указывает на NULL
+    if(root->left != NULL){ //И если левый не какзывает на NULL
+      addToBinaryTree(root->left,n,m); //Рекурсивно вызвать эту функцию для левого элемента корня
+    } else {                           //Если левый указывает на ноль
+      addToBinaryTree(root->right,n,m);//Рукурсивно вызвать функцию на правый элемент корня
     }
-     addToBinaryTree(root->right,n,m);
+  } else {
+    binarytreenode* newnode = new binarytreenode; //создаём новый узел дерева
+    newnode->elem = m[*n];  //задаём ему значение
+    newnode->left = NULL;   //обнуляем левую сторону
+    newnode->right = NULL;  //обнуляем правую сторону
+
+    if(root->right == NULL){
+      if(root->left == NULL){
+        root->left = newnode; //Если левый и правый элемент корня указывают на NULL, то довавить этот новый элемент с лево
+        n++;                  //увеличиваем значение индекса массива с которого мы делаем дерево
+      } else{ 
+        root->right = newnode; //Если левый элемент не указывает на NULL, а правый указывает то добавить новый элемент с права
+        n++;                   //увеличиваем значение индекса массива с которого мы делаем дерево
+      }
+    
+    }    
   }
+
 }
 
 void printBinatyTree(binarytreenode* root);
