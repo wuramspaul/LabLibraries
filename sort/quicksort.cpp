@@ -40,6 +40,7 @@ void quickSort(int *n, int l, int r)
 }
 int main()
 {
+  setlocale(LC_ALL, "rus");
   int n; cout << "Введите кол-во элементвов массива : "; cin >> n; //Вводим кол-во элементов массива
   int* a = new int[n];  //создаём динамический массив для совместимости с MSVS
   
