@@ -17,6 +17,7 @@ void addToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавле�
       n++;
     } 
     root->right = newnode;
+    n++;
   }
   if(root->right != NULL){
     if(root->left != NULL){
@@ -25,6 +26,9 @@ void addToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавле�
      addToBinaryTree(root->right,n,m);
   }
 }
+
+void printBinatyTree(binarytreenode* root);
+void deleteNodeFromBinaryTree(binarytreenode* node);
 
 int main(){
   binarytreenode* root = NULL;
