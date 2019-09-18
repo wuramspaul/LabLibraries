@@ -1,4 +1,5 @@
 #include <iostream>
+
 struct binarytreenode //структура для бинарного дерева
 {
   binarytreenode* left; //указатель на левый элемент
@@ -6,12 +7,12 @@ struct binarytreenode //структура для бинарного дерев�
   int elem; //значение эля этого узла
 };
 
-void addToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавление элемента в двоичное дерево  
+void InseptToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавление элемента в двоичное дерево  
   if(root->right != NULL){  //Если правый не указывает на NULL
     if(root->left != NULL){ //И если левый не какзывает на NULL
-      addToBinaryTree(root->left,n,m); //Рекурсивно вызвать эту функцию для левого элемента корня
+      InseptToBinaryTree(root->left,n,m); //Рекурсивно вызвать эту функцию для левого элемента корня
     } else {                           //Если левый указывает на ноль
-      addToBinaryTree(root->right,n,m);//Рукурсивно вызвать функцию на правый элемент корня
+      InseptToBinaryTree(root->right,n,m);//Рукурсивно вызвать функцию на правый элемент корня
     }
   } else {
     binarytreenode* newnode = new binarytreenode; //создаём новый узел дерева
@@ -30,7 +31,6 @@ void addToBinaryTree(binarytreenode *&root, int *n, int* m){  // добавле�
     
     }    
   }
-
 }
 
 void printBinatyTree(binarytreenode* root);
@@ -38,6 +38,6 @@ void deleteNodeFromBinaryTree(binarytreenode* node);
 
 int main(){
   binarytreenode* root = NULL;
-
   return 0;
+
 }
