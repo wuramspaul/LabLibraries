@@ -1,33 +1,48 @@
 #include <iostream>
+
 using namespace std;
 
-void arrayPrint(int* m, int n){  
-  for(int i= 0; i != n; i++){
-    if(m[i] > 10 || m[i] == 10 ){   //Если элемент больше 10
-      cout << m[i] <<  " ";         //просто выводим значение с после него ставим пробелом
-    
-    } else {                        //Если элемент меньше нуля
-      cout << " " << m[i] <<  " ";  //выводим сначало дополнительный символ впереди
+void heapify(int arr[], int n, int i)
+{
+    int largest = i;   
+// Инициализируем наибольший элемент как корень
+    int l = 2*i + 1; // левый = 2*i + 1
+    int r = 2*i + 2; // правый = 2*i + 2
+
+ // Если левый дочерний элемент больше корня
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+
+   // Если правый дочерний элемент больше, чем самый большой элемент на данный момент
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+
+    // Если самый большой элемент не корень
+    if (largest != i)
+    {
+        swap(arr[i], arr[largest]);
+
+// Рекурсивно преобразуем в двоичную кучу затронутое поддерево
+        heapify(arr, n, largest);
     }
-    
-  }
-  cout << "\n"; //После вывода массива переводим курсор на следующую строку
-}
-void swap(int* m, int n, int k){
-  int temp = m[n];
-  m[n] = m[k];
-  m[k] = temp;
 }
 
-void maxElem(int* m, int root, int left, int right){
-  if( m[left] > m[root]){
-    swap(m,left,root); 
-    
-  }
-  if( m[right] > m[root]){
-    swap(m,right,root); 
-    
-  }
+// Основная функция, выполняющая пирамидальную сортировку
+void heapSort(int arr[], int n)
+{
+  // Построение кучи (перегруппируем массив)
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+   // Один за другим извлекаем элементы из кучи
+    for (int i=n-1; i>=0; i--)
+    {
+        // Перемещаем текущий корень в конец
+        swap(arr[0], arr[i]);
+
+        // вызываем процедуру heapify на уменьшенной куче
+        heapify(arr, i, 0);
+    }
 }
 
 void arrayRandom(int* m, int len){  //Функция для заполнения массивва случайными числами
@@ -37,30 +52,20 @@ void arrayRandom(int* m, int len){  //Функция для заполнения
   }                                 //Конец цикла
 }                                   //Конец функции
 
-
-void printB(int* m, int n, int len){
-  cout << m[2*n+1] << " " <<  m[2*n+2]<< "   ";
+/* Вспомогательная функция для вывода на экран массива размера n*/
+void printArray(int arr[], int n)
+{
+    for (int i=0; i<n; ++i)
+        cout << arr[i] << " ";
+    cout << "\n";
 }
 
-void Heapsort(int* m, int len){
-
-}
-
-void treeP(int* m, int n, int len){
-  cout<< m[n] << endl;
-  printB(m,n,len);
-  cout << endl;
-  printB(m,n+1,len);
-  printB(m,n+2,len);
-  cout << endl;
-}
-int main(){
-  int len = 8;
-  int* m = new int[len];  
-  arrayRandom(m,len);
-  treeP(m,0,len);
-  
-
-  
-  return 0;
+int main()
+{   
+    int len = 10;
+    int* arr = new int[len];
+    arrayRandom(arr,len);
+    printArray(arr, len);
+    heapSort(arr, len);
+    printArray(arr, len);
 }

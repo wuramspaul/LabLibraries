@@ -1,7 +1,9 @@
 #include <iostream>
 using namespace std;
+
 //Функция вывода элементов массива
 //с облостью определения 0..99
+void arrayPrint(int*, int);
 void arrayPrint(int* m, int n){  
   for(int i= 0; i != n; i++){
     if(m[i] > 10 || m[i] == 10 ){   //Если элемент больше 10
