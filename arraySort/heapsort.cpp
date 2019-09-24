@@ -1,3 +1,4 @@
+//рефакторинг кода из https://habr.com/ru/company/otus/blog/460087/
 #include <iostream>
 using namespace std;
 
